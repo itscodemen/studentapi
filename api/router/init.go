@@ -14,7 +14,6 @@ func InitRoutes() *gin.Engine {
 	r.GET("/student/:id", handlers.GetStudentByID)
 	r.PUT("/student/:id", handlers.UpdateStudent)
 	r.DELETE("/student/:id", handlers.DeleteStudent)
-
 	return r
 
 }

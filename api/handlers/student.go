@@ -42,13 +42,15 @@ func CreateStudent(c *gin.Context) {
 }
 
 func GetStudents(c *gin.Context) {
-	student, err := storage.Student.GetStudent()
+
+	name := c.DefaultQuery("sortby", "id")
+	//filter := c.DefaultQuery("filterby","name")
+	student, err := storage.Student.GetStudent(name)
 	if err != nil {
 		utils.RespondWithError(c.Writer, 400, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, student)
-
 }
 
 func GetStudentByID(c *gin.Context) {

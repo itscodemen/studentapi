@@ -21,9 +21,9 @@ func (s *StudentPersistStorage) InsertStudent(st models.Student) (models.Student
 	return st, nil
 }
 
-func (s *StudentPersistStorage) GetStudent() ([]models.Student, error) {
+func (s *StudentPersistStorage) GetStudent(sortby string) ([]models.Student, error) {
 	var Student []models.Student
-	err := s.db.Find(&Student).Error
+	err := s.db.Order(sortby).Find(&Student).Error
 	if err != nil {
 		return []models.Student{}, nil
 	}
@@ -55,7 +55,6 @@ func (s *StudentPersistStorage) UpdateStudent(st models.Student, id string) (mod
 	st.ID, _ = strconv.Atoi(id)
 	s.db.Save(&st)
 	return st, nil
-
 }
 
 func (s *StudentPersistStorage) DeleteStudent(st models.Student, id string) (models.Student, error) {
