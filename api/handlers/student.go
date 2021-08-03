@@ -44,8 +44,8 @@ func CreateStudent(c *gin.Context) {
 func GetStudents(c *gin.Context) {
 
 	name := c.DefaultQuery("sortby", "id")
-	//filter := c.DefaultQuery("filterby","name")
-	student, err := storage.Student.GetStudent(name)
+	dir := c.DefaultQuery("order", "DESC")
+	student, err := storage.Student.GetStudent(name, dir)
 	if err != nil {
 		utils.RespondWithError(c.Writer, 400, err.Error())
 		return

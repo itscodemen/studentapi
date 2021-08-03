@@ -21,9 +21,9 @@ func (s *StudentPersistStorage) InsertStudent(st models.Student) (models.Student
 	return st, nil
 }
 
-func (s *StudentPersistStorage) GetStudent(sortby string) ([]models.Student, error) {
+func (s *StudentPersistStorage) GetStudent(sortby string, order string) ([]models.Student, error) {
 	var Student []models.Student
-	err := s.db.Order(sortby).Find(&Student).Error
+	err := s.db.Order(fmt.Sprintf("%s %s", sortby, order)).Find(&Student).Error
 	if err != nil {
 		return []models.Student{}, nil
 	}
