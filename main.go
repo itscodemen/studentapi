@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"proj1/api/router"
 	"proj1/domain/storage"
@@ -23,5 +24,8 @@ func main() {
 
 	r := router.InitRoutes()
 
-	r.Run()
+	prt := flag.String("port", ":8080", "Port Number")
+	flag.Parse()
+	port := *prt
+	r.Run(":" + port)
 }
