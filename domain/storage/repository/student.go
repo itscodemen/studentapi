@@ -69,6 +69,18 @@ func (s *StudentPersistStorage) DeleteStudent(st models.Student, id string) (mod
 	return st, nil
 }
 
+func (s *StudentPersistStorage) CheckEmailExists(email string) (models.Student, error) {
+	var st models.Student
+	err := s.db.Where("email = ?", email).First(&st).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return models.Student{}, err
+		}
+		return models.Student{}, err
+	}
+	return st, nil
+}
+
 func NewStudentStorage(db *gorm.DB) *StudentPersistStorage {
 	s := &StudentPersistStorage{db: db}
 	return s

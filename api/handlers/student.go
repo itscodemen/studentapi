@@ -29,6 +29,10 @@ func CreateStudent(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
+	if CheckEmailExists(c, student.Email) {
+		utils.RespondWithError(c.Writer, 400, "Email Already Exists")
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"Created Successfully": st})
 
 }
@@ -52,6 +56,15 @@ func GetStudentByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, st)
 
+}
+
+func CheckEmailExists(c *gin.Context, email string) bool {
+	_, err := storage.Student.CheckEmailExists(email)
+	if err != nil {
+		utils.RespondWithError(c.Writer, 400, err.Error())
+		return false
+	}
+	return true
 }
 
 func UpdateStudent(c *gin.Context) {

@@ -8,4 +8,5 @@ type StudentStorage interface {
 	GetStudentByID(string) (models.Student, error)
 	UpdateStudent(models.Student, string) (models.Student, error)
 	DeleteStudent(models.Student, string) (models.Student, error)
+	CheckEmailExists(string) (models.Student, error)
 }
