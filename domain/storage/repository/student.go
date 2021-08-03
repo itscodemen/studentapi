@@ -81,6 +81,18 @@ func (s *StudentPersistStorage) CheckEmailExists(email string) (models.Student, 
 	return st, nil
 }
 
+func (s *StudentPersistStorage) CheckPhoneExists(phone string) (models.Student, error) {
+	var st models.Student
+	err := s.db.Where("phone = ?", phone).First(&st).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return models.Student{}, err
+		}
+		return models.Student{}, err
+	}
+	return st, nil
+}
+
 func NewStudentStorage(db *gorm.DB) *StudentPersistStorage {
 	s := &StudentPersistStorage{db: db}
 	return s
