@@ -73,9 +73,6 @@ func (s *StudentPersistStorage) CheckEmailExists(email string) (models.Student, 
 	var st models.Student
 	err := s.db.Where("email = ?", email).First(&st).Error
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Student{}, err
-		}
 		return models.Student{}, err
 	}
 	return st, nil
@@ -85,9 +82,6 @@ func (s *StudentPersistStorage) CheckPhoneExists(phone string) (models.Student, 
 	var st models.Student
 	err := s.db.Where("phone = ?", phone).First(&st).Error
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Student{}, err
-		}
 		return models.Student{}, err
 	}
 	return st, nil

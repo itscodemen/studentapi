@@ -22,19 +22,20 @@ func CreateStudent(c *gin.Context) {
 		utils.RespondWithError(c.Writer, 400, msg)
 		return
 	}
+	if CheckEmailExists(c, student.Email) {
+		utils.RespondWithError(c.Writer, 400, "Email already Exists")
+		return
+	}
+	if CheckPhoneExists(c, student.Phone) {
+		utils.RespondWithError(c.Writer, 400, "Phone Number already Exists")
+		return
+	}
 
 	st, err := storage.Student.InsertStudent(student)
 	if err != nil {
 		fmt.Println(err.Error())
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
-	}
-	if CheckEmailExists(c, student.Email) {
-		utils.RespondWithError(c.Writer, 400, "Email Already Exists")
-		return
-	}
-	if CheckPhoneExists(c, student.Email) {
-		utils.RespondWithError(c.Writer, 400, "Phone Number already Exists")
 	}
 	c.JSON(http.StatusOK, gin.H{"Created Successfully": st})
 
@@ -63,20 +64,12 @@ func GetStudentByID(c *gin.Context) {
 
 func CheckEmailExists(c *gin.Context, email string) bool {
 	_, err := storage.Student.CheckEmailExists(email)
-	if err != nil {
-		utils.RespondWithError(c.Writer, 400, err.Error())
-		return false
-	}
-	return true
+	return err == nil
 }
 
 func CheckPhoneExists(c *gin.Context, phone string) bool {
 	_, err := storage.Student.CheckPhoneExists(phone)
-	if err != nil {
-		utils.RespondWithError(c.Writer, 400, err.Error())
-		return false
-	}
-	return true
+	return err == nil
 }
 
 func UpdateStudent(c *gin.Context) {
