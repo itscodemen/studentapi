@@ -21,13 +21,18 @@ func (s *StudentPersistStorage) InsertStudent(st models.Student) (models.Student
 	return st, nil
 }
 
-func (s *StudentPersistStorage) GetStudent(sortby string, order string) ([]models.Student, error) {
-	var Student []models.Student
-	err := s.db.Order(fmt.Sprintf("%s %s", sortby, order)).Find(&Student).Error
-	if err != nil {
-		return []models.Student{}, nil
+func (s *StudentPersistStorage) GetStudent(student models.Student, pagination models.Pagination) ([]models.Student, error) {
+	var Students []models.Student
+	offset := (pagination.Page - 1) * pagination.Limit
+	queryBuider := s.db.Limit(pagination.Limit).Offset(offset).Order(pagination.Sort)
+	err := queryBuider.Model(&models.Student{}).Where(student).Find(&Students)
+
+	//err := queryBuider.Order(fmt.Sprintf("%s %s", sortby, order)).Find(&Student).Error
+	if err.Error != nil {
+		msg := err.Error
+		return nil, msg
 	}
-	return Student, nil
+	return Students, nil
 }
 
 func (s *StudentPersistStorage) GetStudentByID(id string) (models.Student, error) {

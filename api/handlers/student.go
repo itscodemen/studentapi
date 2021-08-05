@@ -6,6 +6,7 @@ import (
 	"proj1/api/utils"
 	"proj1/domain/storage"
 	"proj1/models"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -43,14 +44,16 @@ func CreateStudent(c *gin.Context) {
 
 func GetStudents(c *gin.Context) {
 
-	name := c.DefaultQuery("sortby", "id")
-	dir := c.DefaultQuery("order", "DESC")
-	student, err := storage.Student.GetStudent(name, dir)
+	// name := c.DefaultQuery("sortby", "id")
+	// dir := c.DefaultQuery("order", "DESC")
+	pagination := GeneratePaginationFromRequest(c)
+	var student models.Student
+	sl, err := storage.Student.GetStudent(student, pagination)
 	if err != nil {
 		utils.RespondWithError(c.Writer, 400, err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, student)
+	c.JSON(http.StatusOK, gin.H{"data": sl})
 }
 
 func GetStudentByID(c *gin.Context) {
@@ -105,4 +108,32 @@ func DeleteStudent(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"Message": "Deleted Successfully"})
+}
+
+func GeneratePaginationFromRequest(c *gin.Context) models.Pagination {
+	limit := 5
+	page := 1
+	sort := "name asc"
+	query := c.Request.URL.Query()
+	for key, value := range query {
+		queryValue := value[len(value)-1]
+		switch key {
+		case "limit":
+			limit, _ = strconv.Atoi(queryValue)
+			break
+		case "page":
+			page, _ = strconv.Atoi(queryValue)
+			break
+		case "sort":
+			sort = queryValue
+			break
+
+		}
+	}
+	return models.Pagination{
+		Limit: limit,
+		Page:  page,
+		Sort:  sort,
+	}
+
 }

@@ -6,3 +6,9 @@ type Student struct {
 	Email string `json:"email"`
 	Phone string `json:"phone"`
 }
+
+type Pagination struct {
+	Limit int    `json:"limit"`
+	Page  int    `json:"page"`
+	Sort  string `json:"sort"`
+}
