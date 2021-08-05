@@ -1,6 +1,8 @@
 package db
 
 import (
+	"proj1/models"
+
 	"gorm.io/gorm"
 
 	"gorm.io/driver/mysql"
@@ -12,5 +14,7 @@ func DBConfig() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	db.AutoMigrate(&models.Student{})
+
 	return db, nil
 }

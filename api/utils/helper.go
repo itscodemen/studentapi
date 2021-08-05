@@ -20,6 +20,7 @@ func RespondWithJSON(w http.ResponseWriter, reqcode int, eh interface{}) error {
 	w.Write(response)
 	return nil
 }
+
 func RespondWithError(w http.ResponseWriter, code int, msg string) error {
 	return RespondWithJSON(w, code, map[string]string{"error": msg})
 }

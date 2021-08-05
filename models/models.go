@@ -12,3 +12,24 @@ type Pagination struct {
 	Page  int    `json:"page"`
 	Sort  string `json:"sort"`
 }
+
+type metaData struct {
+	Pagination interface{} `json:"pagination"`
+}
+
+type GetAllResp struct {
+	Data interface{} `json:"data"`
+	Meta *metaData   `json:"meta"`
+}
+
+func NewDefaultResponse(data interface{}, p interface{}) *GetAllResp {
+	var meta *metaData
+	if p != nil {
+		meta = &metaData{Pagination: p}
+	}
+
+	return &GetAllResp{
+		Data: data,
+		Meta: meta,
+	}
+}
