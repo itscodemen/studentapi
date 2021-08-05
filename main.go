@@ -24,7 +24,7 @@ func main() {
 
 	r := router.InitRoutes()
 
-	prt := flag.String("port", ":8080", "Port Number")
+	prt := flag.String("port", "8080", "Port Number")
 	flag.Parse()
 	port := *prt
 	r.Run(":" + port)
