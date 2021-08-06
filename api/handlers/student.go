@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"proj1/api/utils"
+	"proj1/domain/filters"
+	"proj1/domain/pagination"
 	"proj1/domain/storage"
 	"proj1/models"
 	"strconv"
@@ -44,16 +46,24 @@ func CreateStudent(c *gin.Context) {
 
 func GetStudents(c *gin.Context) {
 
-	// name := c.DefaultQuery("sortby", "id")
-	// dir := c.DefaultQuery("order", "DESC")
-	pagination := GeneratePaginationFromRequest(c)
-	var student models.Student
-	sl, err := storage.Student.GetStudent(student, pagination)
+	sp, err := pagination.NewPaginationFromGinCtx(c)
+	if err != nil {
+		utils.RespondWithError(c.Writer, 500, err.Error())
+		return
+	}
+
+	sf, err := filters.NewStudentFilterFromCtx(c)
+	if err != nil {
+		utils.RespondWithError(c.Writer, 500, err.Error())
+		return
+	}
+
+	sts, err := storage.Student.GetStudents(sp, sf)
 	if err != nil {
 		utils.RespondWithError(c.Writer, 400, err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": sl})
+	c.JSON(http.StatusOK, models.NewDefaultResponse(sts, sp))
 }
 
 func GetStudentByID(c *gin.Context) {

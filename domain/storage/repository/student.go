@@ -3,6 +3,8 @@ package repository
 import (
 	"errors"
 	"fmt"
+	"proj1/domain/filters"
+	"proj1/domain/pagination"
 	"proj1/models"
 	"strconv"
 
@@ -21,18 +23,24 @@ func (s *StudentPersistStorage) InsertStudent(st models.Student) (models.Student
 	return st, nil
 }
 
-func (s *StudentPersistStorage) GetStudent(student models.Student, pagination models.Pagination) ([]models.Student, error) {
-	var Students []models.Student
-	offset := (pagination.Page - 1) * pagination.Limit
-	queryBuider := s.db.Limit(pagination.Limit).Offset(offset).Order(pagination.Sort)
-	err := queryBuider.Model(&models.Student{}).Where(student).Find(&Students)
+func (s *StudentPersistStorage) GetStudents(pa *pagination.Pagination, sf *filters.StudentFilter) ([]models.Student, error) {
+	var (
+		sts []models.Student
+		err error
+	)
 
-	//err := queryBuider.Order(fmt.Sprintf("%s %s", sortby, order)).Find(&Student).Error
-	if err.Error != nil {
-		msg := err.Error
-		return nil, msg
+	q := sf.Scope(s.db.Model(&models.Student{}))
+
+	q, err = pa.Scope(q)
+	if err != nil {
+		return nil, err
 	}
-	return Students, nil
+
+	err = q.Find(&sts).Error
+	if err != nil {
+		return nil, err
+	}
+	return sts, nil
 }
 
 func (s *StudentPersistStorage) GetStudentByID(id string) (models.Student, error) {
