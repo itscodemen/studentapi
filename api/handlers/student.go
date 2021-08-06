@@ -8,7 +8,6 @@ import (
 	"proj1/domain/pagination"
 	"proj1/domain/storage"
 	"proj1/models"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -120,26 +119,26 @@ func DeleteStudent(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Message": "Deleted Successfully"})
 }
 
-func GeneratePaginationFromRequest(c *gin.Context) models.Pagination {
-	limit := 5
-	page := 1
-	sort := "name asc"
-	query := c.Request.URL.Query()
-	for key, value := range query {
-		queryValue := value[len(value)-1]
-		switch key {
-		case "limit":
-			limit, _ = strconv.Atoi(queryValue)
-		case "page":
-			page, _ = strconv.Atoi(queryValue)
-		case "sort":
-			sort = queryValue
-		}
-	}
-	return models.Pagination{
-		Limit: limit,
-		Page:  page,
-		Sort:  sort,
-	}
+// func GeneratePaginationFromRequest(c *gin.Context) models.Pagination {
+// 	limit := 5
+// 	page := 1
+// 	sort := "name asc"
+// 	query := c.Request.URL.Query()
+// 	for key, value := range query {
+// 		queryValue := value[len(value)-1]
+// 		switch key {
+// 		case "limit":
+// 			limit, _ = strconv.Atoi(queryValue)
+// 		case "page":
+// 			page, _ = strconv.Atoi(queryValue)
+// 		case "sort":
+// 			sort = queryValue
+// 		}
+// 	}
+// 	return models.Pagination{
+// 		Limit: limit,
+// 		Page:  page,
+// 		Sort:  sort,
+// 	}
 
-}
+// }
