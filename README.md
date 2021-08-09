@@ -43,3 +43,7 @@ For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Colum
  In order to avoid duplicacy of Data, the API will check for Existing Data with similar Phone number and Email Id and will prevent from creating duplicate entries.
  
  
+ ### Filtering 
+ 
+ User can now filter the data in by Passing string "search=`search key`" in the URL
+ 
