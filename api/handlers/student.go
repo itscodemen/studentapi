@@ -8,6 +8,7 @@ import (
 	"proj1/domain/pagination"
 	"proj1/domain/storage"
 	"proj1/models"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,9 @@ func CreateStudent(c *gin.Context) {
 		utils.RespondWithError(c.Writer, 400, "Bad Request")
 		return
 	}
+
+	student.Phone = strings.ReplaceAll(student.Phone, "-", "")
+
 	flag, msg := utils.Validation(c, student.Name, student.Email, student.Phone)
 	if flag {
 		utils.RespondWithError(c.Writer, 400, msg)

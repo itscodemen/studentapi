@@ -2,6 +2,7 @@ package filters
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -14,6 +15,7 @@ type StudentFilter struct {
 	Name      *string `form:"name"`
 	Email     *string `form:"email"`
 	Phone     *string `form:"phone"`
+	Time      *string `form:"time"`
 }
 
 func (sf *StudentFilter) GetSortField() string {
@@ -50,6 +52,22 @@ func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
 	}
 	if sf.Search != nil {
 		db = db.Debug().Where(fmt.Sprintf("name LIKE %s OR email LIKE %s OR phone LIKE %s", "'%"+*sf.Search+"%'", "'%"+*sf.Search+"%'", "'%"+*sf.Search+"%'"))
+	}
+
+	if sf.Time != nil {
+		now := time.Now()
+		if *sf.Time == "weekly" {
+			db = db.Where("created_at < ?", now.AddDate(0, 0, -7))
+		}
+		if *sf.Time == "daily" {
+			db = db.Where("created_at < ?", now.AddDate(0, -1, 0))
+		}
+		if *sf.Time == "monthly" {
+			db = db.Where("created_at < ?", now.AddDate(0, 0, -1))
+		}
+		if *sf.Time == "yearly" {
+			db = db.Where("created_at < ?", now.AddDate(-1, 0, 0))
+		}
 	}
 
 	return db

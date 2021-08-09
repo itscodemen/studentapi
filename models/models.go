@@ -1,10 +1,14 @@
 package models
 
+import "time"
+
 type Student struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Phone string `json:"phone"`
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Phone     string `json:"phone"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Pagination struct {
