@@ -20,18 +20,18 @@ DELETE /student/:id
 
 ### Validation
 
-Email is checked for its correctness
+Email is checked for its validness.
 
-Phone number is checked for its 10-digit length
+Phone number is checked for its valid 10-digit length.
 
-Name is checked for its empty field
+Name is checked if it is not empty.
 
 
 ### Sorting 
 
 Sorting is defined in the URL by using string` "sort_field= field_name"  & "dir = direction_of_sorting" `
 
-For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Column field as phone and Direction for Sorting as Ascending)
+For example` "/student?sort_field=phone&sort_dir=asc" `(Here we have choosen Column field as phone and Direction for Sorting as Ascending)
 
 
  ### Pagination
@@ -53,3 +53,5 @@ For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Colum
  
  User can now filter data on daily/weekly/monthly/yearly basis
  User has to pass the Filter String as ` "time= time_key"  `(Here time_key can be daily/weekly/monthly/yearly) in the URL.
+ 
+ For Example = ` "\student?time=daily" ` (Here we are filtering based on data created in last 24hours or Daily Basis)
