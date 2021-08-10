@@ -3,12 +3,12 @@ package models
 import "time"
 
 type Student struct {
-	ID        int    `json:"id"`
-	Name      string `json:"name"`
-	Email     string `json:"email"`
-	Phone     string `json:"phone"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        int       `json:"id"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	Phone     string    `json:"phone"`
+	CreatedAt time.Time `gorm:"<-:create"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 type Pagination struct {
