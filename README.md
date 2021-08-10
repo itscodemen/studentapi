@@ -52,4 +52,4 @@ For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Colum
  ### Time Based Filtering
  
  User can now filter data on daily/weekly/monthly/yearly basis
- User has to pass the Filter String as  "time=`time key`" (Here time key can be daily/weekly/monthly/yearly) in the URL.
+ User has to pass the Filter String as ` "time= time key"  `(Here time key can be daily/weekly/monthly/yearly) in the URL.
