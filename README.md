@@ -45,11 +45,11 @@ For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Colum
  
  ### Data Filtering 
  
- User can now filter the data from the tables by Passing Search string as "search=`search key`" (Here Search key is the value to be searched) in the URL. 
+ User can now filter the data from the tables by Passing Search string as` "search= search_key " `(Here search_key is the value to be searched) in the URL. 
  It will filter all the data that matches the passed string. 
  Note:- It is not necessary to pass the full length of the search key, the API will search for all the data fields that matches the passed string wheather it is partial or full.
  
  ### Time Based Filtering
  
  User can now filter data on daily/weekly/monthly/yearly basis
- User has to pass the Filter String as ` "time= time key"  `(Here time key can be daily/weekly/monthly/yearly) in the URL.
+ User has to pass the Filter String as ` "time= time_key"  `(Here time_key can be daily/weekly/monthly/yearly) in the URL.
