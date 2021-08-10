@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"regexp"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,9 +29,14 @@ func isEmailValid(e string) bool {
 	return emailRegex.MatchString(e)
 }
 
+func isNameValid(e string) bool {
+	nameRegex := regexp.MustCompile(`^(\D)([A-Z]|[a-z]|[ ]|[0-9]|[.]){1,64}`)
+	return nameRegex.MatchString(e)
+}
+
 func Validation(c *gin.Context, name string, email string, phone string) (bool, string) {
-	if strings.TrimSpace(name) == "" {
-		return true, "Name cannot be left blank"
+	if !isNameValid(name) {
+		return true, "Invalid Name"
 	}
 	if !isEmailValid(email) {
 		return true, "Invalid Email"
