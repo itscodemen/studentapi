@@ -31,7 +31,7 @@ Name is checked for its empty field
 
 Sorting is defined in the URL by using string` "sort_field= field_name"  & "dir = direction_of_sorting" `
 
-For example "/student?sort_field=phone&sort_dir=asc" (Here we have choosen Column field as phone and Direction for Sorting as Ascending)
+For example` "/student?sort_field=phone&sort_dir=asc" `(Here we have choosen Column field as phone and Direction for Sorting as Ascending)
 
 
  ### Pagination
