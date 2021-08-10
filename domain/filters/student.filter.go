@@ -60,10 +60,10 @@ func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
 			db = db.Where("created_at > ?", now.AddDate(0, 0, -7))
 		}
 		if *sf.Time == "daily" {
-			db = db.Where("created_at > ?", now.AddDate(0, -1, 0))
+			db = db.Where("created_at > ?", now.AddDate(0, 0, -1))
 		}
 		if *sf.Time == "monthly" {
-			db = db.Where("created_at > ?", now.AddDate(0, 0, -1))
+			db = db.Where("created_at > ?", now.AddDate(0, -1, 0))
 		}
 		if *sf.Time == "yearly" {
 			db = db.Where("created_at > ?", now.AddDate(-1, 0, 0))
