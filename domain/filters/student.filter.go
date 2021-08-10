@@ -43,10 +43,8 @@ func (sf *StudentFilter) GetSearchValue() string {
 }
 
 func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
-	if sf.SortField != nil {
-		if sf.SortDest != nil {
-			db = db.Debug().Order(fmt.Sprintf("%s %s", sf.GetSortField(), sf.GetSortDest()))
-		}
+	if sf.SortField != nil || sf.SortDest != nil {
+		db = db.Debug().Order(fmt.Sprintf("%s %s", sf.GetSortField(), sf.GetSortDest()))
 	}
 
 	if sf.Name != nil {
