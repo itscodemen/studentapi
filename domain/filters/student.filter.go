@@ -26,6 +26,14 @@ func (sf *StudentFilter) GetSortField() string {
 	return *sf.SortField
 }
 
+func (sf *StudentFilter) GetSortDest() string {
+	if sf.SortDest == nil {
+		return "asc"
+	}
+
+	return *sf.SortDest
+}
+
 func (sf *StudentFilter) GetSearchValue() string {
 	if sf.Search == nil {
 		return ""
@@ -37,7 +45,7 @@ func (sf *StudentFilter) GetSearchValue() string {
 func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
 	if sf.SortField != nil {
 		if sf.SortDest != nil {
-			db = db.Debug().Order(fmt.Sprintf("%s %s", sf.GetSortField(), *sf.SortDest))
+			db = db.Debug().Order(fmt.Sprintf("%s %s", sf.GetSortField(), sf.GetSortDest()))
 		}
 	}
 
