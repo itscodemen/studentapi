@@ -20,7 +20,7 @@ type StudentFilter struct {
 
 func (sf *StudentFilter) GetSortField() string {
 	if sf.SortField == nil {
-		return ""
+		return "id"
 	}
 
 	return *sf.SortField
