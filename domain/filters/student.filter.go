@@ -16,6 +16,7 @@ type StudentFilter struct {
 	Email     *string `form:"email"`
 	Phone     *string `form:"phone"`
 	Time      *string `form:"time"`
+	Date      *string `form:"date"`
 }
 
 func (sf *StudentFilter) GetSortField() string {
@@ -42,6 +43,14 @@ func (sf *StudentFilter) GetSearchValue() string {
 	return *sf.Search
 }
 
+func (sf *StudentFilter) GetDate() string {
+	if sf.Date == nil {
+		return ""
+	}
+
+	return *sf.Date
+}
+
 func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
 	if sf.SortField != nil || sf.SortDest != nil {
 		db = db.Debug().Order(fmt.Sprintf("%s %s", sf.GetSortField(), sf.GetSortDest()))
@@ -58,6 +67,9 @@ func (sf *StudentFilter) Scope(db *gorm.DB) *gorm.DB {
 	}
 	if sf.Search != nil {
 		db = db.Debug().Where(fmt.Sprintf("name LIKE %s OR email LIKE %s OR phone LIKE %s", "'%"+*sf.Search+"%'", "'%"+*sf.Search+"%'", "'%"+*sf.Search+"%'"))
+	}
+	if sf.Date != nil {
+		db = db.Debug().Where(fmt.Sprintf("created_at LIKE %s OR updated_at LIKE %s", "'"+*sf.Date+"%'", "'"+*sf.Date+"%'"))
 	}
 
 	if sf.Time != nil {
