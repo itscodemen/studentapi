@@ -55,3 +55,10 @@ For example` "/student?sort_field=phone&sort_dir=asc" `(Here we have choosen Col
  User has to pass the Filter String as ` "time= time_key"  `(Here time_key can be daily/weekly/monthly/yearly) in the URL.
  
  For Example = ` "\student?time=daily" ` (Here we are filtering based on data created in last 24hours or Daily Basis)
+
+ ### Date Filtering 
+
+ User can now filter the data from the data based on the Date Created at and Date Updated at .
+ User has to pass the Filter String as ` "date= date_key" ` (Here date_key can be the date value) in the URL.
+
+For Example = ` "/student?date=2021-08-08" ` (Here we are filtering the data that was either created on 8th August or updated on 8th August)
