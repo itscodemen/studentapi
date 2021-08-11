@@ -8,12 +8,13 @@ import (
 
 func InitRoutes() *gin.Engine {
 	r := gin.Default()
+	v1 := r.Group("/api/v1")
 
-	r.POST("/student", handlers.CreateStudent)
-	r.GET("/student", handlers.GetStudents)
-	r.GET("/student/:id", handlers.GetStudentByID)
-	r.PUT("/student/:id", handlers.UpdateStudent)
-	r.DELETE("/student/:id", handlers.DeleteStudent)
+	v1.POST("/student", handlers.CreateStudent)
+	v1.GET("/student", handlers.GetStudents)
+	v1.GET("/student/:id", handlers.GetStudentByID)
+	v1.PUT("/student/:id", handlers.UpdateStudent)
+	v1.DELETE("/student/:id", handlers.DeleteStudent)
 
 	return r
 }
