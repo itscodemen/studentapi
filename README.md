@@ -10,13 +10,13 @@ First create a DB with name 'crud'
 
 # Available Endpoints
 
-POST   /student                  
-GET    /student                 
-GET    /student/:id              
-PUT    /student/:id              
-DELETE /student/:id                                                                                                                                                                 
-POST   /signup                                                                                                                                                                     
-POST   /login
+POST   /api/v1/student                  
+GET    /api/v1/student                 
+GET    /api/v1/student/:id              
+PUT    /api/v1/student/:id              
+DELETE /api/v1/student/:id                                                                                                                                                                 
+POST   /api/v1/signup                                                                                                                                                                     
+POST   /api/v1/login
 
 
 
