@@ -14,7 +14,8 @@ POST   /student
 GET    /student                 
 GET    /student/:id              
 PUT    /student/:id              
-DELETE /student/:id                                                                                                                                                             POST   /signup                                                                                                                                                                     
+DELETE /student/:id                                                                                                                                                                 
+POST   /signup                                                                                                                                                                     
 POST   /login
 
 
