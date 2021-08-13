@@ -16,8 +16,8 @@ GET    /student/:id
 PUT    /student/:id              
 DELETE /student/:id
 
-POST /signup
-POST /login
+POST   /signup
+POST   /login
 
 
 
