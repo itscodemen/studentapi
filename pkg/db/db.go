@@ -14,7 +14,7 @@ func DBConfig() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	db.AutoMigrate(&models.Student{})
+	db.AutoMigrate(&models.Student{}, &models.User{})
 
 	return db, nil
 }

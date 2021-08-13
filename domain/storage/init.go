@@ -6,9 +6,13 @@ import (
 	"gorm.io/gorm"
 )
 
-var Student StudentStorage
+var (
+	Student StudentStorage
+	User    UserStorage
+)
 
 func InitStorage(db *gorm.DB) error {
 	Student = repository.NewStudentStorage(db)
+	User = repository.NewUserStorage(db)
 	return nil
 }

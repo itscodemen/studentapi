@@ -16,5 +16,8 @@ func InitRoutes() *gin.Engine {
 	v1.PUT("/student/:id", handlers.UpdateStudent)
 	v1.DELETE("/student/:id", handlers.DeleteStudent)
 
+	v1.POST("/login", handlers.Login)
+	v1.POST("/signup", handlers.Signup)
+
 	return r
 }
