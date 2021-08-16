@@ -32,9 +32,6 @@ func (s *StudentPersistStorage) CheckPassword(providedPassword string, providedE
 	if err != nil {
 		return err
 	}
-	// log.Println("Provided Password ", providedPassword)
-	// log.Println("Printing error", err)
-	// log.Println("Printing res", res)
 	return nil
 
 }
