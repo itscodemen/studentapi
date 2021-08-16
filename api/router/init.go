@@ -9,6 +9,7 @@ import (
 func InitRoutes() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/api/v1")
+	v2 := r.Group("/api/v2")
 
 	v1.POST("/student", handlers.CreateStudent)
 	v1.GET("/student", handlers.GetStudents)
@@ -16,8 +17,8 @@ func InitRoutes() *gin.Engine {
 	v1.PUT("/student/:id", handlers.UpdateStudent)
 	v1.DELETE("/student/:id", handlers.DeleteStudent)
 
-	v1.POST("/login", handlers.Login)
-	v1.POST("/signup", handlers.Signup)
+	v2.POST("/login", handlers.Login)
+	v2.POST("/signup", handlers.Signup)
 
 	return r
 }

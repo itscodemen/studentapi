@@ -75,4 +75,10 @@ Login feature will allow user to login using the existing credentials inside the
 
 ### Generation of JWT Token
 
-A JWT token is generated at the time of User Login 
+A JWT token is generated at the time of User Login.
+
+
+### Grouping of EndPoints
+
+Endpoints of the API are grouped in the Route using ` .Group ` function to create a new router Group.
+(Here we have created v1 as our router group for Crud Functions (`/api/v1`) and v2 for SignUp and Login(`/api/v2`))
