@@ -57,13 +57,3 @@ func HashPassword(password string) (string, error) {
 	return string(bytes), nil
 
 }
-
-// func CheckPassword(providedPassword string) error {
-// 	var user models.User
-// 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(providedPassword))
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }

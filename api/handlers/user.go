@@ -16,21 +16,21 @@ func Signup(c *gin.Context) {
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
 		log.Println(err)
-		c.AbortWithStatusJSON(400, gin.H{"Message": "invalid json"})
+		c.AbortWithStatusJSON(400, gin.H{"Message": "Invalid json"})
 		return
 	}
 
 	user.Password, err = utils.HashPassword(user.Password)
 	if err != nil {
 		log.Println(err.Error())
-		c.AbortWithStatusJSON(500, gin.H{"Message": "error hashing password"})
+		c.AbortWithStatusJSON(500, gin.H{"Message": "Error hashing password"})
 		return
 	}
 
 	err = storage.User.CreateUser(user)
 	if err != nil {
 		log.Println(err)
-		c.AbortWithStatusJSON(500, gin.H{"Message": "error creating user"})
+		c.AbortWithStatusJSON(500, gin.H{"Message": "Error creating user"})
 		return
 	}
 
@@ -53,7 +53,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if CheckPassword(payload.Password, payload.Email) {
+	if !CheckPassword(payload.Password, payload.Email) {
 		utils.RespondWithError(c.Writer, 401, "Invalid Password")
 		return
 	}
@@ -74,7 +74,6 @@ func Login(c *gin.Context) {
 	tokenResponse := models.LoginResponse{
 		Token: signedToken,
 	}
-
 	c.JSON(200, tokenResponse)
 
 }
@@ -85,8 +84,6 @@ func CheckUserExists(email string) bool {
 }
 
 func CheckPassword(password, email string) bool {
-
 	err := storage.User.CheckPassword(password, email)
-	//log.Println("Inside Check Password")
-	return err != nil
+	return err == nil
 }
