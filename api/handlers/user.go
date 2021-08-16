@@ -47,14 +47,14 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if !CheckUserExists(c, payload.Email) {
+	if !CheckUserExists(payload.Email) {
 		log.Println(payload.Email)
-		utils.RespondWithError(c.Writer, 401, "Invalid User credentials")
+		utils.RespondWithError(c.Writer, 401, "Invalid UserName")
 		return
 	}
 
-	if CheckPassword(c, payload.Password) {
-		utils.RespondWithError(c.Writer, 401, "Invalid User credentials")
+	if CheckPassword(payload.Password, payload.Email) {
+		utils.RespondWithError(c.Writer, 401, "Invalid Password")
 		return
 	}
 
@@ -79,12 +79,14 @@ func Login(c *gin.Context) {
 
 }
 
-func CheckUserExists(c *gin.Context, email string) bool {
+func CheckUserExists(email string) bool {
 	_, err := storage.User.CheckUserExists(email)
 	return err == nil
 }
 
-func CheckPassword(c *gin.Context, password string) bool {
-	err := storage.User.CheckPassword(password)
-	return err == nil
+func CheckPassword(password, email string) bool {
+
+	err := storage.User.CheckPassword(password, email)
+	//log.Println("Inside Check Password")
+	return err != nil
 }

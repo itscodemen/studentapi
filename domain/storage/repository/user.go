@@ -24,12 +24,17 @@ func (s *StudentPersistStorage) CheckUserExists(payload string) (models.User, er
 	return user, nil
 }
 
-func (s *StudentPersistStorage) CheckPassword(providedPassword string) error {
+func (s *StudentPersistStorage) CheckPassword(providedPassword string, providedEmail string) error {
 	var user models.User
-	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(providedPassword))
+	var res string
+	s.db.Model(&user).Where("email = ?", providedEmail).Pluck("password", &res)
+	err := bcrypt.CompareHashAndPassword([]byte(res), []byte(providedPassword))
 	if err != nil {
 		return err
 	}
+	// log.Println("Provided Password ", providedPassword)
+	// log.Println("Printing error", err)
+	// log.Println("Printing res", res)
 	return nil
 
 }
