@@ -64,3 +64,15 @@ For example` "/student?sort_field=phone&sort_dir=asc" `(Here we have choosen Col
  User has to pass the Filter String as ` "date= date_key" ` (Here date_key can be the date value) in the URL.
 
 For Example = ` "/student?date=2021-08-08" ` (Here we are filtering the data that was either created on 8th August or updated on 8th August)
+
+
+### SignUp and Login Feature
+
+SignUp feature will allow user to register themselves as a user to access the database.        
+Validation is available at the time of User SignUp.                                                            
+Login feature will allow user to login using the existing credentials inside the database.    
+
+
+### Generation of JWT Token
+
+A JWT token is generated at the time of User Login 
